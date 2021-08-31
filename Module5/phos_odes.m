@@ -6,7 +6,7 @@ kAcat = 100;
 kIcat = 10;
 Ptot = 1;
 Ktot = 1;
-Itot = 100;
+Itot = 1;
 
 figure; hold on;
 
@@ -24,10 +24,9 @@ for n=10.^[-3:.01:2]
     
     Asteady = mean(X(floor(length(T)/2):length(T),1));
     Isteady = mean(X(floor(length(T)/2):length(T),3));
-    %plot(T,X)
     scatter(Ktot, Asteady/(Asteady+Isteady))
-    set(gca, 'XScale', 'log')
     
 end 
+set(gca, 'XScale', 'log')
 ylabel('A/(A+I)');
 xlabel('K Total');
