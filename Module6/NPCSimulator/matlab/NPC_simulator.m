@@ -32,47 +32,47 @@ tic;
 
 parfor iSample=1:NSample
 %for iSample=1:NSample
-    
+
     % intial condition
     x = [L/2,0];
-    
+
     t = 0;
     for nt=1:ntmax
-        
+
         % dynamics
         x = x + alpha*randn(1,2);
-        
+
         % boundaries
         if x(1)>L/2
             x(1)=L/2;
         elseif x(1)<-L/2
             x(1)=-L/2;
         end
-        
+
         if x(2)>L/2
             x(2)=L/2;
         elseif x(2)<-L/2
             x(2)=-L/2;
         end
-        
+
         % test for NPC capture
         if ( (x(1)-NPCLocation(1))^2 + (x(2)-NPCLocation(2))^2 < NPCSize^2 )
             tCapture(iSample) = t;
             break;
         end
-        
+
         if 0 % visualize
             figure(1);
             plot(x(1),x(2),'-ob');
             drawnow;
         end % finished visualization
-        
+
         t = t+dt;
-        
+
     end % finished loop through time
-        
+
     %display(iSample);
-    
+
 end % finished loop through samples
 
 toc % report the time
