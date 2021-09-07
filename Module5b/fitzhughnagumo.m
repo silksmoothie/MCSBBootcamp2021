@@ -1,7 +1,7 @@
 E = 0.08;
 a = 1.0;
 b = 0.2;
-I0 = 1.0;
+I0 = 25.0;
 D = 0.9;
 tstart = 40;
 tstop = 47;
@@ -14,7 +14,7 @@ I = @(t) I0*(t>tstart).*(t<tstop);
 dvdt = @(v,w,t) v-(1/3)*v.^3-w;
 dwdt = @(v,w,t) E*(v+a-b*w);
 
-dxdt = @(t,x)[dvdt(x(1:50),x(51:100),t)+[I(t);zeros(49,1)]+D*([x(50);x(1:49)]-2*x(1:50)+[x(2:50);x(1)]);
+dxdt = @(t,x)[dvdt(x(1:50),x(51:100),t)+[zeros(24,1);I(t);zeros(25,1)]+D*([x(50);x(1:49)]-2*x(1:50)+[x(2:50);x(1)]);
               dwdt(x(1:50),x(51:100),t)];
 
 [T,X] = ode45(dxdt,[0,200],[initv;initw]);
@@ -26,7 +26,7 @@ dxdt = @(t,x)[dvdt(x(1:50),x(51:100),t)+[I(t);zeros(49,1)]+D*([x(50);x(1:49)]-2*
 for nt=1:numel(T)
     figure(5); clf; hold on; box on;
     plot(X(nt,1:50));
-    set(gca, 'ylim',[-2.5,2.5])
+    set(gca, 'ylim',[-2.5,10])
     xlabel('Cell')
     ylabel('Voltage')
     drawnow;
